@@ -1,0 +1,8 @@
+<paths>
+    <external-path
+        name="log"
+        path="LW012CT/" />
+    <external-path
+        name="*"
+        path="." />
+</paths>
