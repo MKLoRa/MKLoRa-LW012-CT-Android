@@ -37,8 +37,8 @@ public enum ParamsKeyEnum implements Serializable {
     KEY_BUZZER_SOUND_CHOOSE(0x0027),
     // 三轴唤醒条件
     KEY_ACC_WAKEUP_CONDITION(0x0028),
-    // 运动检测判断
     KEY_ACC_MOTION_CONDITION(0x0029),
+    // 运动检测判断
     // 电池电量
     KEY_BATTERY_POWER(0x0040),
     // 产测状态
@@ -53,7 +53,11 @@ public enum ParamsKeyEnum implements Serializable {
     //// 电池相关参数
     // 电池信息清除
     KEY_BATTERY_RESET(0x0100),
-    // 电池电量总消耗
+    // 当前周期电池电量消耗
+    KEY_BATTERY_INFO(0x0101),
+    // 上一周期电池电量消耗
+    KEY_BATTERY_INFO_LAST(0x0102),
+    // 所有周期电池电量总消耗
     KEY_BATTERY_INFO_ALL(0x0103),
     // 低电百分比
     KEY_LOW_POWER_PERCENT(0x0104),
@@ -78,6 +82,8 @@ public enum ParamsKeyEnum implements Serializable {
     //// 模式相关参数
     // 工作模式选择
     KEY_DEVICE_MODE(0x0300),
+    // 离线定位功能开关
+    KEY_OFFLINE_LOCATION_ENABLE(0x0800),
     // 待机模式下定位策略选择
     KEY_STANDBY_MODE_POS_STRATEGY(0x0310),
     // 定期模式定位策略
@@ -253,12 +259,8 @@ public enum ParamsKeyEnum implements Serializable {
     // 网络检查间隔
     KEY_LORA_NETWORK_CHECK_INTERVAL(0x0541),
 
-    // 设备信息包上行配置
-    KEY_DEVICE_INFO_PAYLOAD(0x0550),
     //心跳数据包上行配置
     KEY_HEARTBEAT_PAYLOAD(0x0551),
-    //低电状态数据包上行配置
-    KEY_LOW_POWER_PAYLOAD(0x0552),
     //事件信息包上行配置
     KEY_EVENT_PAYLOAD(0x0554),
     //定位数据包上行配置
@@ -267,6 +269,10 @@ public enum ParamsKeyEnum implements Serializable {
     KEY_BATTERY_PAYLOAD(0x0556),
     //震动检测包上行配置
     KEY_SHOCK_PAYLOAD(0x0557),
+    // 闲置检测包上行配置
+    KEY_MAN_DOWN_PAYLOAD(0x0558),
+    // 防拆报警包上行配置
+    KEY_TAMPER_ALARM_PAYLOAD(0x0559),
     //GPS极限定位数据包上行配置
     KEY_GPS_LIMIT_PAYLOAD(0x055B),
     //产品配置包上行配置
@@ -283,8 +289,20 @@ public enum ParamsKeyEnum implements Serializable {
     KEY_SHOCK_REPORT_INTERVAL(0x0612),
     // 震动次数判断间隔
     KEY_SHOCK_TIMEOUT(0x0613),
+    // 闲置功能使能
+    KEY_MAN_DOWN_DETECTION_ENABLE(0x0620),
+    // 闲置超时时间
+    KEY_MAN_DOWN_DETECTION_TIMEOUT(0x0621),
+    // 闲置清除
+    KEY_MAN_DOWN_DETECTION_RESET(0x0622),
     //光照监测开关
     KEY_LIGHT_MONITOR_ENABLE(0x0640),
+    //防拆报警功能开关
+    KEY_TAMPER_ALARM_ENABLE(0x0630),
+    //防拆报警阈值
+    KEY_TAMPER_ALARM_THRESHOLD(0x0631),
+    //防拆报警包上报间隔
+    KEY_TAMPER_ALARM_REPORT_INTERVAL(0x0632),
     //光照数据采样间隔
     KEY_LIGHT_SAMPLE_RATE(0x0641),
     //光照阈值
@@ -313,14 +331,14 @@ public enum ParamsKeyEnum implements Serializable {
     KEY_ALARM_SOS_REPORT_INTERVAL(0x0667),
     //SOS 报警事件通知
     KEY_ALARM_SOS_NOTIFY_ENABLE(0x0668),
-    // 闲置功能使能
-    KEY_MAN_DOWN_DETECTION_ENABLE(0x0670),
-    // 闲置超时时间
-    KEY_MAN_DOWN_DETECTION_TIMEOUT(0x0671),
-    // 闲置定位策略
-    KEY_MAN_DOWN_DETECTION_POS_STRATEGY(0x0672),
-    // 闲置定位上报间隔
-    KEY_MAN_DOWN_DETECTION_REPORT_INTERVAL(0x0673),
+//    // 闲置功能使能
+//    KEY_MAN_DOWN_DETECTION_ENABLE(0x0670),
+//    // 闲置超时时间
+//    KEY_MAN_DOWN_DETECTION_TIMEOUT(0x0671),
+//    // 闲置定位策略
+//    KEY_MAN_DOWN_DETECTION_POS_STRATEGY(0x0672),
+//    // 闲置定位上报间隔
+//    KEY_MAN_DOWN_DETECTION_REPORT_INTERVAL(0x0673),
     //    // 活动记录使能
 //    KEY_ACTIVE_STATE_COUNT_ENABLE(0xBA),
 //    // 活动判定间隔

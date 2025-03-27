@@ -17,7 +17,6 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityAlarmFunctionBinding;
-import com.moko.lw012ct.dialog.BottomDialog;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
 import com.moko.support.lw012ct.OrderTaskAssembler;
@@ -35,9 +34,8 @@ import java.util.List;
 public class AlarmFunctionActivity extends BaseActivity {
     private Lw012ActivityAlarmFunctionBinding mBind;
     private boolean mReceiverTag;
-    private final ArrayList<String> mValues = new ArrayList<>(4);
-    private int mSelected;
-    private int alarmTypeFlag;
+    private int thresholdFlag;
+    private int alarmEnableFlag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +43,7 @@ public class AlarmFunctionActivity extends BaseActivity {
         mBind = Lw012ActivityAlarmFunctionBinding.inflate(getLayoutInflater());
         setContentView(mBind.getRoot());
         EventBus.getDefault().register(this);
-        mValues.add("NO");
-        mValues.add("Alert");
-        mValues.add("SOS");
+
         // 注册广播接收器
         IntentFilter filter = new IntentFilter();
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
@@ -55,23 +51,10 @@ public class AlarmFunctionActivity extends BaseActivity {
         mReceiverTag = true;
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>(4);
-        orderTasks.add(OrderTaskAssembler.getAlarmType());
-        orderTasks.add(OrderTaskAssembler.getAlarmExitTime());
+        orderTasks.add(OrderTaskAssembler.getTamperAlarmEnable());
+        orderTasks.add(OrderTaskAssembler.getTamperAlarmThreshold());
+        orderTasks.add(OrderTaskAssembler.getTamperAlarmReportInterval());
         LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
-
-        mBind.tvAlarmType.setOnClickListener(v -> {
-            if (isWindowLocked()) return;
-            BottomDialog dialog = new BottomDialog();
-            dialog.setDatas(mValues, mSelected);
-            dialog.setListener(value -> {
-                mSelected = value;
-                mBind.tvAlarmType.setText(mValues.get(value));
-            });
-            dialog.show(getSupportFragmentManager());
-        });
-
-        mBind.tvAlertAlarmSetting.setOnClickListener(v -> startActivity(new Intent(this, AlertAlarmSettingActivity.class)));
-        mBind.tvSosAlarmSetting.setOnClickListener(v -> startActivity(new Intent(this, AlarmSosSettingActivity.class)));
     }
 
     @Subscribe(threadMode = ThreadMode.POSTING, priority = 300)
@@ -110,12 +93,14 @@ public class AlarmFunctionActivity extends BaseActivity {
                         if (flag == 0x01) {
                             // write
                             switch (configKeyEnum) {
-                                case KEY_ALARM_TYPE:
-                                    alarmTypeFlag = value[5] & 0xff;
+                                case KEY_TAMPER_ALARM_ENABLE:
+                                    alarmEnableFlag = value[5] & 0xff;
                                     break;
-
-                                case KEY_ALARM_EXIT_TIME:
-                                    if (alarmTypeFlag == 1 && (value[5] & 0xff) == 1) {
+                                case KEY_TAMPER_ALARM_THRESHOLD:
+                                    thresholdFlag = value[5] & 0xff;
+                                    break;
+                                case KEY_TAMPER_ALARM_REPORT_INTERVAL:
+                                    if (thresholdFlag == 1 && alarmEnableFlag == 1 && (value[5] & 0xff) == 1) {
                                         ToastUtils.showToast(this, "Save Successfully！");
                                     } else {
                                         ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
@@ -126,18 +111,22 @@ public class AlarmFunctionActivity extends BaseActivity {
                         if (flag == 0x00) {
                             // read
                             switch (configKeyEnum) {
-                                case KEY_ALARM_TYPE:
+                                case KEY_TAMPER_ALARM_ENABLE:
                                     if (length == 1) {
-                                        mSelected = value[5] & 0xff;
-                                        mBind.tvAlarmType.setText(mValues.get(mSelected));
+                                        int enable = value[5] & 0xff;
+                                        mBind.cbTamperAlarmEnable.setChecked(enable == 1);
                                     }
                                     break;
-
-                                case KEY_ALARM_EXIT_TIME:
+                                case KEY_TAMPER_ALARM_THRESHOLD:
                                     if (length == 1) {
-                                        int time = value[5] & 0xff;
-                                        mBind.etExitAlarmTime.setText(String.valueOf(time));
-                                        mBind.etExitAlarmTime.setSelection(mBind.etExitAlarmTime.getText().length());
+                                        int threshold = value[5] & 0xff;
+                                        mBind.etLightThreshold.setText(String.valueOf(threshold));
+                                    }
+                                    break;
+                                case KEY_TAMPER_ALARM_REPORT_INTERVAL:
+                                    if (length == 2) {
+                                        int interval = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 5 + length));
+                                        mBind.etReportInterval.setText(String.valueOf(interval));
                                     }
                                     break;
                             }
@@ -159,18 +148,27 @@ public class AlarmFunctionActivity extends BaseActivity {
     }
 
     private void saveParams() {
-        int time = Integer.parseInt(mBind.etExitAlarmTime.getText().toString());
-        List<OrderTask> orderTasks = new ArrayList<>(2);
-        orderTasks.add(OrderTaskAssembler.setAlarmType(mSelected));
-        orderTasks.add(OrderTaskAssembler.setAlarmExitTime(time));
+        alarmEnableFlag = 0;
+        thresholdFlag = 0;
+        int threshold = Integer.parseInt(mBind.etLightThreshold.getText().toString());
+        int interval = Integer.parseInt(mBind.etReportInterval.getText().toString());
+        List<OrderTask> orderTasks = new ArrayList<>(3);
+        orderTasks.add(OrderTaskAssembler.setTamperAlarmEnable(mBind.cbTamperAlarmEnable.isChecked() ? 1 : 0));
+        orderTasks.add(OrderTaskAssembler.setTamperAlarmThreshold(threshold));
+        orderTasks.add(OrderTaskAssembler.setTamperAlarmInterval(interval));
         LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
 
     private boolean isValid() {
-        if (TextUtils.isEmpty(mBind.etExitAlarmTime.getText())) return false;
-        String timeStr = mBind.etExitAlarmTime.getText().toString();
-        int time = Integer.parseInt(timeStr);
-        return time >= 5 && time <= 15;
+        if (TextUtils.isEmpty(mBind.etLightThreshold.getText())) return false;
+        String thresholdStr = mBind.etLightThreshold.getText().toString();
+        int threshold = Integer.parseInt(thresholdStr);
+        if (threshold < 10 || threshold > 200)
+            return false;
+        if (TextUtils.isEmpty(mBind.etReportInterval.getText())) return false;
+        String intervalStr = mBind.etReportInterval.getText().toString();
+        int interval = Integer.parseInt(intervalStr);
+        return interval >= 1 && interval <= 14400;
     }
 
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {

@@ -37,8 +37,6 @@ public class IndicatorSettingsActivity extends BaseActivity {
     private boolean mReceiverTag = false;
     private boolean savedParamsError;
 
-    private int mAlarmState;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +88,7 @@ public class IndicatorSettingsActivity extends BaseActivity {
                         if (value.length >= 5) {
                             int header = value[0] & 0xFF;// 0xED
                             int flag = value[1] & 0xFF;// read or write
-                                int cmd = MokoUtils.toInt(Arrays.copyOfRange(value, 2, 4));
+                            int cmd = MokoUtils.toInt(Arrays.copyOfRange(value, 2, 4));
                             if (header != 0xED)
                                 return;
                             ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
@@ -119,18 +117,14 @@ public class IndicatorSettingsActivity extends BaseActivity {
                                 switch (configKeyEnum) {
                                     case KEY_INDICATOR_STATUS:
                                         if (length > 0) {
-                                            byte[] indicatorBytes = Arrays.copyOfRange(value, 5, 5 + length);
-                                            int indicator = MokoUtils.toInt(indicatorBytes);
-                                            mBind.cbDeviceState.setChecked((indicator & 1) == 1);
-                                            mAlarmState = indicator & 2;
-                                            mBind.cbFix.setChecked((indicator & 4) == 4);
-                                            mBind.cbFixSuccess.setChecked((indicator & 8) == 8);
-                                            mBind.cbFixFail.setChecked((indicator & 16) == 16);
-                                            mBind.cbNetworkCheck.setChecked((indicator & 32) == 32);
-                                            mBind.cbFullCharge.setChecked((indicator & 64) == 64);
-                                            mBind.cbCharging.setChecked((indicator & 128) == 128);
-                                            mBind.cbLowPower.setChecked((indicator & 256) == 256);
-                                            mBind.cbBleAdvCheck.setChecked((indicator & 512) == 512);
+                                            int indicator = value[5] & 0xff;
+                                            mBind.cbFix.setChecked((indicator & 1) == 1);
+                                            mBind.cbFixSuccess.setChecked((indicator & 2) == 2);
+                                            mBind.cbFixFail.setChecked((indicator & 4) == 4);
+                                            mBind.cbNetworkCheck.setChecked((indicator & 8) == 8);
+                                            mBind.cbLowPower.setChecked((indicator & 16) == 16);
+                                            mBind.cbBleAdvCheck.setChecked((indicator & 32) == 32);
+                                            mBind.cbDeviceState.setChecked((indicator & 64) == 64);
                                         }
                                         break;
                                 }
@@ -192,16 +186,13 @@ public class IndicatorSettingsActivity extends BaseActivity {
     public void onSave(View view) {
         if (isWindowLocked())
             return;
-        int indicator = (mBind.cbDeviceState.isChecked() ? 1 : 0)
-                | mAlarmState
-                | (mBind.cbFix.isChecked() ? 4 : 0)
-                | (mBind.cbFixSuccess.isChecked() ? 8 : 0)
-                | (mBind.cbFixFail.isChecked() ? 16 : 0)
-                | (mBind.cbNetworkCheck.isChecked() ? 32 : 0)
-                | (mBind.cbFullCharge.isChecked() ? 64 : 0)
-                | (mBind.cbCharging.isChecked() ? 128 : 0)
-                | (mBind.cbLowPower.isChecked() ? 256 : 0)
-                | (mBind.cbBleAdvCheck.isChecked() ? 512 : 0);
+        int indicator = (mBind.cbFix.isChecked() ? 1 : 0)
+                | (mBind.cbFixSuccess.isChecked() ? 2 : 0)
+                | (mBind.cbFixFail.isChecked() ? 4 : 0)
+                | (mBind.cbNetworkCheck.isChecked() ? 8 : 0)
+                | (mBind.cbLowPower.isChecked() ? 16 : 0)
+                | (mBind.cbBleAdvCheck.isChecked() ? 32 : 0)
+                | (mBind.cbDeviceState.isChecked() ? 64 : 0);
         savedParamsError = false;
         showSyncingProgressDialog();
         LoRaLW012CTMokoSupport.getInstance().sendOrder(OrderTaskAssembler.setIndicatorStatus(indicator));

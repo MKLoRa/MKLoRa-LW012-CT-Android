@@ -32,18 +32,18 @@ public class AdvInfoAnalysisImpl implements DeviceInfoParseable<AdvInfo> {
             return null;
         int deviceType = -1;
         int batteryPower = -1;
-        int batteryPercent = -1;
+        int lowPowerState = -1;
         boolean verifyEnable = false;
         Iterator iterator = map.keySet().iterator();
         while (iterator.hasNext()) {
             ParcelUuid parcelUuid = (ParcelUuid) iterator.next();
-            if (parcelUuid.toString().startsWith("0000aa15")) {
+            if (parcelUuid.toString().startsWith("0000aa17")) {
                 byte[] bytes = map.get(parcelUuid);
                 if (bytes != null) {
                     deviceType = bytes[0] & 0xFF;
-                    batteryPercent = bytes[7] & 0xFF;
-                    batteryPower = MokoUtils.toInt(Arrays.copyOfRange(bytes, 8, 10));
-                    verifyEnable = ((bytes[10] >> 7) & 0x01) == 0x01;
+                    lowPowerState = (bytes[1] >> 4) & 0x01;
+                    verifyEnable = ((bytes[1] >> 5) & 0x01) == 0x01;
+                    batteryPower = MokoUtils.toInt(Arrays.copyOfRange(bytes, 2, 4));
                 }
             }
         }
@@ -54,7 +54,7 @@ public class AdvInfoAnalysisImpl implements DeviceInfoParseable<AdvInfo> {
             advInfo = advInfoHashMap.get(deviceInfo.mac);
             advInfo.name = deviceInfo.name;
             advInfo.rssi = deviceInfo.rssi;
-            advInfo.batteryPercent = batteryPercent;
+            advInfo.lowPowerState = lowPowerState;
             advInfo.deviceType = deviceType;
             advInfo.batteryPower = batteryPower;
             long currentTime = SystemClock.elapsedRealtime();
@@ -69,7 +69,7 @@ public class AdvInfoAnalysisImpl implements DeviceInfoParseable<AdvInfo> {
             advInfo.name = deviceInfo.name;
             advInfo.mac = deviceInfo.mac;
             advInfo.rssi = deviceInfo.rssi;
-            advInfo.batteryPercent = batteryPercent;
+            advInfo.lowPowerState = lowPowerState;
             advInfo.deviceType = deviceType;
             advInfo.batteryPower = batteryPower;
             advInfo.scanTime = SystemClock.elapsedRealtime();

@@ -219,7 +219,7 @@ public class PeriodicModeActivity extends BaseActivity {
             return;
         }
         final int interval = Integer.parseInt(intervalStr);
-        if (interval < 1 || interval > 14400) {
+        if (interval < 30 || interval > 86400) {
             ToastUtils.showToast(this, "Para error!");
             return;
         }

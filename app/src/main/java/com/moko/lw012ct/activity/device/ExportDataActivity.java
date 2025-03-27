@@ -140,9 +140,9 @@ public class ExportDataActivity extends BaseActivity {
                             if (dataCount > 0) {
                                 Calendar calendar = Calendar.getInstance();
                                 String time = Utils.calendar2strDate(calendar, AppConstants.PATTERN_YYYY_MM_DD_HH_MM_SS);
-                                int index = 5;
+                                int index = 6;
                                 while (index < length) {
-                                    int dataLength = value[index];
+                                    int dataLength = value[index] & 0xff;
                                     String rawData = "";
                                     if (dataLength > 0) {
                                         index += 1;

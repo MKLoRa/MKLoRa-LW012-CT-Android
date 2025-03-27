@@ -106,58 +106,6 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/cbDeviceState" />
-
-                <View
-                    style="@style/lw012_divider_line"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cb_low_power" />
-
-                <CheckBox
-                    android:id="@+id/cbCharging"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/lw012_selector_cb_btn"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:text="Charging"
-                    android:textColor="@color/lw012_black_333333"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cb_low_power" />
-
-                <View
-                    style="@style/lw012_divider_line"
-                    android:layout_width="0dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cbCharging" />
-
-                <CheckBox
-                    android:id="@+id/cbFullCharge"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:button="@null"
-                    android:checked="false"
-                    android:drawableRight="@drawable/lw012_selector_cb_btn"
-                    android:paddingTop="6dp"
-                    android:paddingBottom="6dp"
-                    android:text="Full Charge"
-                    android:textColor="@color/lw012_black_333333"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/cbCharging" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

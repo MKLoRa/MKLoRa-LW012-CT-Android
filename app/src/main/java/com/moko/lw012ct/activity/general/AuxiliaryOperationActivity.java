@@ -91,14 +91,4 @@ public class AuxiliaryOperationActivity extends BaseActivity {
         if (isWindowLocked()) return;
         startActivity(new Intent(this, AlarmFunctionActivity.class));
     }
-
-    public void onTempMonitor(View view) {
-        if (isWindowLocked()) return;
-        startActivity(new Intent(this, TempMonitorActivity.class));
-    }
-
-    public void onLightMonitor(View view) {
-        if (isWindowLocked()) return;
-        startActivity(new Intent(this, LightMonitorActivity.class));
-    }
 }

@@ -5,7 +5,7 @@ public class AdvInfo {
     public int deviceType;
     public int rssi;
     public String mac;
-    public int batteryPercent;
+    public int lowPowerState;
     public int batteryPower;
     public long scanTime;
     public long intervalTime;

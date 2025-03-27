@@ -58,7 +58,6 @@ public class OnOffSettingsActivity extends BaseActivity {
             List<OrderTask> orderTasks = new ArrayList<>(4);
             orderTasks.add(OrderTaskAssembler.getShutdownPayloadEnable());
             orderTasks.add(OrderTaskAssembler.getOffByButtonEnable());
-            orderTasks.add(OrderTaskAssembler.getAutoPowerOn());
             LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }
         setListener();
@@ -79,15 +78,6 @@ public class OnOffSettingsActivity extends BaseActivity {
             List<OrderTask> orderTasks = new ArrayList<>(2);
             orderTasks.add(OrderTaskAssembler.setOffByButton(offByButtonOpen ? 0 : 1));
             orderTasks.add(OrderTaskAssembler.getOffByButtonEnable());
-            LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
-        });
-
-        mBind.ivAutoPowerOn.setOnClickListener(v -> {
-            if (isWindowLocked()) return;
-            showSyncingProgressDialog();
-            List<OrderTask> orderTasks = new ArrayList<>(2);
-            orderTasks.add(OrderTaskAssembler.setAutoPowerOn(autoPowerOnOpen ? 0 : 1));
-            orderTasks.add(OrderTaskAssembler.getAutoPowerOn());
             LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         });
 
@@ -147,7 +137,6 @@ public class OnOffSettingsActivity extends BaseActivity {
                             switch (configKeyEnum) {
                                 case KEY_SHUTDOWN_PAYLOAD_ENABLE:
                                 case KEY_OFF_BY_BUTTON:
-                                case KEY_AUTO_POWER_ON_ENABLE:
                                     if (result == 1) {
                                         ToastUtils.showToast(this, "Save Successfully！");
                                     } else {
@@ -171,13 +160,6 @@ public class OnOffSettingsActivity extends BaseActivity {
                                         int enable = value[5] & 0xFF;
                                         offByButtonOpen = enable == 1;
                                         mBind.ivOffByButton.setImageResource(enable == 1 ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
-                                    }
-                                    break;
-                                case KEY_AUTO_POWER_ON_ENABLE:
-                                    if (length == 1) {
-                                        int enable = value[5] & 0xFF;
-                                        autoPowerOnOpen = enable == 1;
-                                        mBind.ivAutoPowerOn.setImageResource(enable == 1 ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
                                     }
                                     break;
                             }

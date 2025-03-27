@@ -132,32 +132,32 @@ public class ParamsWriteTask extends OrderTask {
 
     }
 
-    public void setIndicatorStatus(@IntRange(from = 0, to = 1023) int status) {
-        byte[] statusBytes = MokoUtils.toByteArray(status, 2);
+    public void setIndicatorStatus(@IntRange(from = 0, to = 127) int status) {
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_INDICATOR_STATUS.getParamsKey(), 2);
         response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) cmdBytes[0],
                 (byte) cmdBytes[1],
-                (byte) 0x02,
-                statusBytes[0],
-                statusBytes[1]
+                (byte) 0x01,
+                (byte) status
         };
 
     }
 
-    public void setHeartBeatInterval(@IntRange(from = 1, to = 14400) int interval) {
-        byte[] intervalBytes = MokoUtils.toByteArray(interval, 2);
+    public void setHeartBeatInterval(@IntRange(from = 300, to = 86400) int interval) {
+        byte[] intervalBytes = MokoUtils.toByteArray(interval, 4);
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_HEARTBEAT_INTERVAL.getParamsKey(), 2);
         response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) cmdBytes[0],
                 (byte) cmdBytes[1],
-                (byte) 0x02,
+                (byte) 0x04,
                 intervalBytes[0],
                 intervalBytes[1],
+                intervalBytes[2],
+                intervalBytes[3],
         };
 
     }
@@ -253,6 +253,18 @@ public class ParamsWriteTask extends OrderTask {
                 (byte) interval
         };
 
+    }
+
+    public void setOfflineLocationEnable(@IntRange(from = 0, to = 1) int enable) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_OFFLINE_LOCATION_ENABLE.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) enable
+        };
     }
 
     public void setLowPowerPercent(@IntRange(from = 0, to = 5) int percent) {
@@ -403,17 +415,19 @@ public class ParamsWriteTask extends OrderTask {
     }
 
 
-    public void setPeriodicReportInterval(@IntRange(from = 1, to = 14400) int interval) {
-        byte[] intervalBytes = MokoUtils.toByteArray(interval, 2);
+    public void setPeriodicReportInterval(@IntRange(from = 30, to = 86400) int interval) {
+        byte[] intervalBytes = MokoUtils.toByteArray(interval, 4);
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_PERIODIC_MODE_REPORT_INTERVAL.getParamsKey(), 2);
         response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) cmdBytes[0],
                 (byte) cmdBytes[1],
-                (byte) 0x02,
+                (byte) 0x04,
                 intervalBytes[0],
-                intervalBytes[1]
+                intervalBytes[1],
+                intervalBytes[2],
+                intervalBytes[3]
         };
 
     }
@@ -1517,7 +1531,7 @@ public class ParamsWriteTask extends OrderTask {
     public void setFilterEddystoneUrl(String url) {
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_FILTER_EDDYSTONE_URL.getParamsKey(), 2);
         if (TextUtils.isEmpty(url)) {
-             data = new byte[5];
+            data = new byte[5];
             data[0] = (byte) 0xED;
             data[1] = (byte) 0x01;
             data[2] = (byte) cmdBytes[0];
@@ -2210,45 +2224,47 @@ public class ParamsWriteTask extends OrderTask {
     }
 
 
-    public void setManDownDetectionTimeout(@IntRange(from = 1, to = 120) int timeout) {
+    public void setManDownDetectionTimeout(@IntRange(from = 1, to = 8760) int timeout) {
+        byte[] timeoutBytes = MokoUtils.toByteArray(timeout, 2);
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_TIMEOUT.getParamsKey(), 2);
         response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,
                 (byte) cmdBytes[0],
                 (byte) cmdBytes[1],
-                (byte) 0x01,
-                (byte) timeout
-        };
-
-    }
-
-
-    public void setManDownPosStrategy(@IntRange(from = 0, to = 6) int strategy) {
-        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_POS_STRATEGY.getParamsKey(), 2);
-        response.responseValue = data = new byte[]{
-                (byte) 0xED,
-                (byte) 0x01,
-                (byte) cmdBytes[0],
-                (byte) cmdBytes[1],
-                (byte) 0x01,
-                (byte) strategy
-        };
-    }
-
-    public void setManDownReportInterval(@IntRange(from = 10, to = 600) int interval) {
-        byte[] bytes = MokoUtils.toByteArray(interval, 2);
-        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_REPORT_INTERVAL.getParamsKey(), 2);
-        response.responseValue = data = new byte[]{
-                (byte) 0xED,
-                (byte) 0x01,
-                (byte) cmdBytes[0],
-                (byte) cmdBytes[1],
                 (byte) 0x02,
-                bytes[0],
-                bytes[1]
+                (byte) timeoutBytes[0],
+                (byte) timeoutBytes[1]
         };
+
     }
+
+
+//    public void setManDownPosStrategy(@IntRange(from = 0, to = 6) int strategy) {
+//        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_POS_STRATEGY.getParamsKey(), 2);
+//        response.responseValue = data = new byte[]{
+//                (byte) 0xED,
+//                (byte) 0x01,
+//                (byte) cmdBytes[0],
+//                (byte) cmdBytes[1],
+//                (byte) 0x01,
+//                (byte) strategy
+//        };
+//    }
+//
+//    public void setManDownReportInterval(@IntRange(from = 10, to = 600) int interval) {
+//        byte[] bytes = MokoUtils.toByteArray(interval, 2);
+//        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_REPORT_INTERVAL.getParamsKey(), 2);
+//        response.responseValue = data = new byte[]{
+//                (byte) 0xED,
+//                (byte) 0x01,
+//                (byte) cmdBytes[0],
+//                (byte) cmdBytes[1],
+//                (byte) 0x02,
+//                bytes[0],
+//                bytes[1]
+//        };
+//    }
 
 //    public void setManDownIdleReset() {
 //        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_IDLE_RESET.getParamsKey(), 2);
@@ -2260,6 +2276,44 @@ public class ParamsWriteTask extends OrderTask {
 //                (byte) 0x00
 //        };
 //    }
+
+    public void setTamperAlarmEnable(@IntRange(from = 0, to = 1) int enable) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_TAMPER_ALARM_ENABLE.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) enable
+        };
+    }
+
+    public void setTamperAlarmThreshold(@IntRange(from = 10, to = 200) int threshold) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_TAMPER_ALARM_THRESHOLD.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) threshold
+        };
+    }
+
+    public void setTamperAlarmInterval(@IntRange(from = 1, to = 14400) int interval) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_TAMPER_ALARM_REPORT_INTERVAL.getParamsKey(), 2);
+        byte[] intervalBytes = MokoUtils.toByteArray(interval, 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x02,
+                (byte) intervalBytes[0],
+                (byte) intervalBytes[1]
+        };
+    }
 
     public void setAlarmType(@IntRange(from = 0, to = 2) int type) {
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_ALARM_TYPE.getParamsKey(), 2);
@@ -2521,6 +2575,17 @@ public class ParamsWriteTask extends OrderTask {
 
     public void setBatteryReset() {
         byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_BATTERY_RESET.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x00
+        };
+    }
+
+    public void setIdleReset() {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_RESET.getParamsKey(), 2);
         response.responseValue = data = new byte[]{
                 (byte) 0xED,
                 (byte) 0x01,

@@ -7,11 +7,14 @@ import android.view.View;
 import com.moko.ble.lib.MokoConstants;
 import com.moko.ble.lib.event.ConnectStatusEvent;
 import com.moko.ble.lib.event.OrderTaskResponseEvent;
+import com.moko.ble.lib.task.OrderTask;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityBatteryConsumeBinding;
 import com.moko.lw012ct.dialog.AlertMessageDialog;
+import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
+import com.moko.support.lw012ct.OrderTaskAssembler;
 import com.moko.support.lw012ct.entity.OrderCHAR;
 import com.moko.support.lw012ct.entity.ParamsKeyEnum;
 
@@ -19,7 +22,9 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class BatteryConsumeActivity extends BaseActivity {
 
@@ -33,11 +38,11 @@ public class BatteryConsumeActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         showSyncingProgressDialog();
         mBind.tvAdvTimes.postDelayed(() -> {
-//            List<OrderTask> orderTasks = new ArrayList<>();
-//            orderTasks.add(OrderTaskAssembler.getBatteryInfo());
-//            orderTasks.add(OrderTaskAssembler.getBatteryInfoAll());
-//            orderTasks.add(OrderTaskAssembler.getBatteryInfoLast());
-//            LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            List<OrderTask> orderTasks = new ArrayList<>();
+            orderTasks.add(OrderTaskAssembler.getBatteryInfo());
+            orderTasks.add(OrderTaskAssembler.getBatteryInfoAll());
+            orderTasks.add(OrderTaskAssembler.getBatteryInfoLast());
+            LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         }, 500);
     }
 
@@ -72,7 +77,7 @@ public class BatteryConsumeActivity extends BaseActivity {
                         if (value.length >= 5) {
                             int header = value[0] & 0xFF;// 0xED
                             int flag = value[1] & 0xFF;// read or write
-                                int cmd = MokoUtils.toInt(Arrays.copyOfRange(value, 2, 4));
+                            int cmd = MokoUtils.toInt(Arrays.copyOfRange(value, 2, 4));
                             if (header != 0xED)
                                 return;
                             ParamsKeyEnum configKeyEnum = ParamsKeyEnum.fromParamKey(cmd);
@@ -98,6 +103,26 @@ public class BatteryConsumeActivity extends BaseActivity {
                             if (flag == 0x00) {
                                 // read
                                 switch (configKeyEnum) {
+                                    case KEY_BATTERY_INFO:
+                                        if (length == 32) {
+                                            int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 9));
+                                            mBind.tvRuntime.setText(String.format("%d s", runtime));
+                                            int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 9, 13));
+                                            mBind.tvAdvTimes.setText(String.format("%d times", advTimes));
+                                            int axisDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 13, 17));
+                                            mBind.tvAxisDuration.setText(String.format("%d ms", axisDuration));
+                                            int bleFixDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 17, 21));
+                                            mBind.tvBleFixDuration.setText(String.format("%d ms", bleFixDuration));
+                                            int gpsFixDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 21, 25));
+                                            mBind.tvGpsFixDuration.setText(String.format("%d s", gpsFixDuration));
+                                            int loraTransmissionTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 25, 29));
+                                            mBind.tvLoraTransmissionTimes.setText(String.format("%d times", loraTransmissionTimes));
+                                            int loraPower = MokoUtils.toInt(Arrays.copyOfRange(value, 29, 33));
+                                            mBind.tvLoraPower.setText(String.format("%d mAS", loraPower));
+                                            String batteryConsumeStr = MokoUtils.getDecimalFormat("0.###").format(MokoUtils.toInt(Arrays.copyOfRange(value, 33, 37)) * 0.001f);
+                                            mBind.tvBatteryConsume.setText(String.format("%s mAH", batteryConsumeStr));
+                                        }
+                                        break;
                                     case KEY_BATTERY_INFO_ALL:
                                         if (length == 32) {
                                             int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 7));
@@ -118,6 +143,26 @@ public class BatteryConsumeActivity extends BaseActivity {
                                             mBind.tvBatteryConsumeAll.setText(String.format("%s mAH", batteryConsumeStr));
                                         }
                                         break;
+                                    case KEY_BATTERY_INFO_LAST:
+                                        if (length == 32) {
+                                            int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 9));
+                                            mBind.tvRuntimeLast.setText(String.format("%d s", runtime));
+                                            int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 9, 13));
+                                            mBind.tvAdvTimesLast.setText(String.format("%d times", advTimes));
+                                            int axisDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 13, 17));
+                                            mBind.tvAxisDurationLast.setText(String.format("%d ms", axisDuration));
+                                            int bleFixDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 17, 21));
+                                            mBind.tvBleFixDurationLast.setText(String.format("%d ms", bleFixDuration));
+                                            int gpsFixDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 21, 25));
+                                            mBind.tvGpsFixDurationLast.setText(String.format("%d s", gpsFixDuration));
+                                            int loraTransmissionTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 25, 29));
+                                            mBind.tvLoraTransmissionTimesLast.setText(String.format("%d times", loraTransmissionTimes));
+                                            int loraPower = MokoUtils.toInt(Arrays.copyOfRange(value, 29, 33));
+                                            mBind.tvLoraPowerLast.setText(String.format("%d mAS", loraPower));
+                                            String batteryConsumeStr = MokoUtils.getDecimalFormat("0.###").format(MokoUtils.toInt(Arrays.copyOfRange(value, 33, 37)) * 0.001f);
+                                            mBind.tvBatteryConsumeLast.setText(String.format("%s mAH", batteryConsumeStr));
+                                        }
+                                        break;
                                 }
                             }
                         }
@@ -135,13 +180,13 @@ public class BatteryConsumeActivity extends BaseActivity {
         dialog.setMessage("Are you sure to reset battery?");
         dialog.setConfirm("OK");
         dialog.setOnAlertConfirmListener(() -> {
-//            showSyncingProgressDialog();
-//            List<OrderTask> orderTasks = new ArrayList<>();
-//            orderTasks.add(OrderTaskAssembler.setBatteryReset());
-//            orderTasks.add(OrderTaskAssembler.getBatteryInfo());
-//            orderTasks.add(OrderTaskAssembler.getBatteryInfoAll());
-//            orderTasks.add(OrderTaskAssembler.getBatteryInfoLast());
-//            LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+            showSyncingProgressDialog();
+            List<OrderTask> orderTasks = new ArrayList<>();
+            orderTasks.add(OrderTaskAssembler.setBatteryReset());
+            orderTasks.add(OrderTaskAssembler.getBatteryInfo());
+            orderTasks.add(OrderTaskAssembler.getBatteryInfoAll());
+            orderTasks.add(OrderTaskAssembler.getBatteryInfoLast());
+            LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
         });
         dialog.show(getSupportFragmentManager());
     }

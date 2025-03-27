@@ -21,6 +21,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.AppConstants;
 import com.moko.lw012ct.R;
+import com.moko.lw012ct.activity.device.ExportDataActivity;
 import com.moko.lw012ct.activity.device.IndicatorSettingsActivity;
 import com.moko.lw012ct.activity.device.OnOffSettingsActivity;
 import com.moko.lw012ct.activity.device.SystemInfoActivity;
@@ -227,8 +228,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             ToastUtils.showToast(DeviceInfoActivity.this, "Time sync completed!");
                                         break;
                                     case KEY_TIME_ZONE:
-                                    case KEY_LOW_POWER_PERCENT:
-                                    case KEY_BUZZER_SOUND_CHOOSE:
                                     case KEY_LOW_POWER_PAYLOAD_ENABLE:
                                         if (result != 1) {
                                             savedParamsError = true;
@@ -238,6 +237,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                     case KEY_GPS_EXTREME_MODE_L76C:
                                     case KEY_VOLTAGE_REPORT_ENABLE:
                                     case KEY_LOW_POWER_REPORT_INTERVAL:
+                                    case KEY_OFFLINE_LOCATION_ENABLE:
                                         if (result != 1) {
                                             savedParamsError = true;
                                         }
@@ -274,6 +274,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                             loraFragment.setLoraStatus(networkStatus);
                                         }
                                         break;
+                                    case KEY_OFFLINE_LOCATION_ENABLE:
+                                        if (length > 0) {
+                                            int enable = value[5] & 0xFF;
+                                            posFragment.setOfflineLocationEnable(enable);
+                                        }
+                                        break;
                                     case KEY_GPS_EXTREME_MODE_L76C:
                                         if (length > 0) {
                                             int enable = value[5] & 0xFF;
@@ -308,18 +314,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         if (length > 0) {
                                             int enable = value[5] & 0xFF;
                                             deviceFragment.setLowPowerPayload(enable);
-                                        }
-                                        break;
-                                    case KEY_LOW_POWER_PERCENT:
-                                        if (length > 0) {
-                                            int lowPower = value[5] & 0xFF;
-                                            deviceFragment.setLowPower(lowPower);
-                                        }
-                                        break;
-
-                                    case KEY_BUZZER_SOUND_CHOOSE:
-                                        if (length == 1) {
-                                            deviceFragment.setBuzzerSound(value[5] & 0xff);
                                         }
                                         break;
                                 }
@@ -552,9 +546,9 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         List<OrderTask> orderTasks = new ArrayList<>();
         // device
         orderTasks.add(OrderTaskAssembler.getTimeZone());
-        orderTasks.add(OrderTaskAssembler.getLowPowerPercent());
+//        orderTasks.add(OrderTaskAssembler.getLowPowerPercent());
         orderTasks.add(OrderTaskAssembler.getLowPowerPayloadEnable());
-        orderTasks.add(OrderTaskAssembler.getBuzzerSoundChoose());
+//        orderTasks.add(OrderTaskAssembler.getBuzzerSoundChoose());
         orderTasks.add(OrderTaskAssembler.getLowPowerReportInterval());
         LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
@@ -660,6 +654,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         startActivity(intent);
     }
 
+    public void onOfflineFix(View view) {
+        if (isWindowLocked())
+            return;
+        posFragment.changeOfflineFix();
+    }
+
     public void onBleAndGPS(View view) {
         if (isWindowLocked())
             return;
@@ -707,6 +707,12 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         startActivity(intent);
     }
 
+    public void onLocalDataSync(View view) {
+        if (isWindowLocked())
+            return;
+        startActivity(new Intent(this, ExportDataActivity.class));
+    }
+
     public void onIndicatorSettings(View view) {
         if (isWindowLocked())
             return;
@@ -717,17 +723,6 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         if (isWindowLocked())
             return;
         deviceFragment.showTimeZoneDialog();
-    }
-
-    public void onBuzzer(View view) {
-        if (isWindowLocked()) return;
-        deviceFragment.showBuzzerDialog();
-    }
-
-    public void selectLowPowerPrompt(View view) {
-        if (isWindowLocked())
-            return;
-        deviceFragment.showLowPowerDialog();
     }
 
     public void onOffSetting(View view) {

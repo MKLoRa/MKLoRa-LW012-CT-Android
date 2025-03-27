@@ -119,6 +119,12 @@ public class OrderTaskAssembler {
         return task;
     }
 
+    public static OrderTask getOfflineLocationEnable() {
+        ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_OFFLINE_LOCATION_ENABLE);
+        return task;
+    }
+
     public static OrderTask getLowPowerPercent() {
         ParamsReadTask task = new ParamsReadTask();
         task.setData(ParamsKeyEnum.KEY_LOW_POWER_PERCENT);
@@ -175,21 +181,21 @@ public class OrderTaskAssembler {
 
     public static OrderTask getBatteryInfo() {
         ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_BATTERY_INFO);
+        return task;
+    }
+
+    public static OrderTask getBatteryInfoAll() {
+        ParamsReadTask task = new ParamsReadTask();
         task.setData(ParamsKeyEnum.KEY_BATTERY_INFO_ALL);
         return task;
     }
-//
-//    public static OrderTask getBatteryInfoAll() {
-//        ParamsReadTask task = new ParamsReadTask();
-//        task.setData(ParamsKeyEnum.KEY_BATTERY_INFO_ALL);
-//        return task;
-//    }
-//
-//    public static OrderTask getBatteryInfoLast() {
-//        ParamsReadTask task = new ParamsReadTask();
-//        task.setData(ParamsKeyEnum.KEY_BATTERY_INFO_LAST);
-//        return task;
-//    }
+
+    public static OrderTask getBatteryInfoLast() {
+        ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_BATTERY_INFO_LAST);
+        return task;
+    }
 
     public static OrderTask getPasswordVerifyEnable() {
         ParamsReadTask task = new ParamsReadTask();
@@ -404,6 +410,7 @@ public class OrderTaskAssembler {
         task.setData(ParamsKeyEnum.KEY_BLE_POS_MAC_NUMBER);
         return task;
     }
+
     public static OrderTask getVoltageReportEnable() {
         ParamsReadTask task = new ParamsReadTask();
         task.setData(ParamsKeyEnum.KEY_VOLTAGE_REPORT_ENABLE);
@@ -963,23 +970,41 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask getManDownPosStrategy() {
-        ParamsReadTask task = new ParamsReadTask();
-        task.setData(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_POS_STRATEGY);
-        return task;
-    }
-
-    public static OrderTask getManDownReportInterval() {
-        ParamsReadTask task = new ParamsReadTask();
-        task.setData(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_REPORT_INTERVAL);
-        return task;
-    }
+//    public static OrderTask getManDownPosStrategy() {
+//        ParamsReadTask task = new ParamsReadTask();
+//        task.setData(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_POS_STRATEGY);
+//        return task;
+//    }
+//
+//    public static OrderTask getManDownReportInterval() {
+//        ParamsReadTask task = new ParamsReadTask();
+//        task.setData(ParamsKeyEnum.KEY_MAN_DOWN_DETECTION_REPORT_INTERVAL);
+//        return task;
+//    }
 
 //    public static OrderTask getManDownIdleReset() {
 //        ParamsReadTask task = new ParamsReadTask();
 //        task.setData(ParamsKeyEnum.KEY_MAN_DOWN_IDLE_RESET);
 //        return task;
 //    }
+
+    public static OrderTask getTamperAlarmEnable() {
+        ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_TAMPER_ALARM_ENABLE);
+        return task;
+    }
+
+    public static OrderTask getTamperAlarmThreshold() {
+        ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_TAMPER_ALARM_THRESHOLD);
+        return task;
+    }
+
+    public static OrderTask getTamperAlarmReportInterval() {
+        ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_TAMPER_ALARM_REPORT_INTERVAL);
+        return task;
+    }
 
     public static OrderTask getAlarmType() {
         ParamsReadTask task = new ParamsReadTask();
@@ -1107,9 +1132,9 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask getLowPowerPayload() {
+    public static OrderTask getTamperAlarmPayload() {
         ParamsReadTask task = new ParamsReadTask();
-        task.setData(ParamsKeyEnum.KEY_LOW_POWER_PAYLOAD);
+        task.setData(ParamsKeyEnum.KEY_TAMPER_ALARM_PAYLOAD);
         return task;
     }
 
@@ -1119,9 +1144,9 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask getDeviceInfoPayload() {
+    public static OrderTask getManDownPayload() {
         ParamsReadTask task = new ParamsReadTask();
-        task.setData(ParamsKeyEnum.KEY_DEVICE_INFO_PAYLOAD);
+        task.setData(ParamsKeyEnum.KEY_MAN_DOWN_PAYLOAD);
         return task;
     }
 
@@ -1183,13 +1208,13 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setIndicatorStatus(@IntRange(from = 0, to = 1023) int status) {
+    public static OrderTask setIndicatorStatus(@IntRange(from = 0, to = 127) int status) {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setIndicatorStatus(status);
         return task;
     }
 
-    public static OrderTask setHeartBeatInterval(@IntRange(from = 1, to = 14400) int interval) {
+    public static OrderTask setHeartBeatInterval(@IntRange(from = 300, to = 86400) int interval) {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setHeartBeatInterval(interval);
         return task;
@@ -1229,6 +1254,12 @@ public class OrderTaskAssembler {
     public static OrderTask setLowPowerReportInterval(@IntRange(from = 1, to = 255) int interval) {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setLowPowerReportInterval(interval);
+        return task;
+    }
+
+    public static OrderTask setOfflineLocationEnable(@IntRange(from = 0, to = 1) int enable) {
+        ParamsWriteTask task = new ParamsWriteTask();
+        task.setOfflineLocationEnable(enable);
         return task;
     }
 
@@ -1300,7 +1331,7 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setPeriodicReportInterval(@IntRange(from = 1, to = 14400) int interval) {
+    public static OrderTask setPeriodicReportInterval(@IntRange(from = 30, to = 86400) int interval) {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setPeriodicReportInterval(interval);
         return task;
@@ -2033,29 +2064,47 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setManDownDetectionTimeout(@IntRange(from = 1, to = 120) int timeout) {
+    public static OrderTask setManDownDetectionTimeout(@IntRange(from = 1, to = 8760) int timeout) {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setManDownDetectionTimeout(timeout);
         return task;
     }
 
-    public static OrderTask setManDownPosStrategy(@IntRange(from = 0, to = 6) int strategy) {
-        ParamsWriteTask task = new ParamsWriteTask();
-        task.setManDownPosStrategy(strategy);
-        return task;
-    }
+//    public static OrderTask setManDownPosStrategy(@IntRange(from = 0, to = 6) int strategy) {
+//        ParamsWriteTask task = new ParamsWriteTask();
+//        task.setManDownPosStrategy(strategy);
+//        return task;
+//    }
 
-    public static OrderTask setManDownReportInterval(@IntRange(from = 10, to = 600) int interval) {
-        ParamsWriteTask task = new ParamsWriteTask();
-        task.setManDownReportInterval(interval);
-        return task;
-    }
+//    public static OrderTask setManDownReportInterval(@IntRange(from = 10, to = 600) int interval) {
+//        ParamsWriteTask task = new ParamsWriteTask();
+//        task.setManDownReportInterval(interval);
+//        return task;
+//    }
 
 //    public static OrderTask setManDownIdleReset() {
 //        ParamsWriteTask task = new ParamsWriteTask();
 //        task.setManDownIdleReset();
 //        return task;
 //    }
+
+    public static OrderTask setTamperAlarmEnable(@IntRange(from = 0, to = 1) int enable) {
+        ParamsWriteTask task = new ParamsWriteTask();
+        task.setTamperAlarmEnable(enable);
+        return task;
+    }
+
+    public static OrderTask setTamperAlarmThreshold(@IntRange(from = 10, to = 200) int threshold) {
+        ParamsWriteTask task = new ParamsWriteTask();
+        task.setTamperAlarmThreshold(threshold);
+        return task;
+    }
+
+    public static OrderTask setTamperAlarmInterval(@IntRange(from = 1, to = 14400) int interval) {
+        ParamsWriteTask task = new ParamsWriteTask();
+        task.setTamperAlarmInterval(interval);
+        return task;
+    }
 
     public static OrderTask setAlarmType(@IntRange(from = 0, to = 2) int type) {
         ParamsWriteTask task = new ParamsWriteTask();
@@ -2192,9 +2241,9 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setLowPowerPayload(@IntRange(from = 0, to = 1) int flag, @IntRange(from = 1, to = 4) int times) {
+    public static OrderTask setTamperAlarmPayload(@IntRange(from = 0, to = 1) int flag, @IntRange(from = 1, to = 4) int times) {
         ParamsWriteTask task = new ParamsWriteTask();
-        task.setPayloadInfo(flag, times, ParamsKeyEnum.KEY_LOW_POWER_PAYLOAD.getParamsKey());
+        task.setPayloadInfo(flag, times, ParamsKeyEnum.KEY_TAMPER_ALARM_PAYLOAD.getParamsKey());
         return task;
     }
 
@@ -2204,9 +2253,9 @@ public class OrderTaskAssembler {
         return task;
     }
 
-    public static OrderTask setDeviceInfoPayload(@IntRange(from = 0, to = 1) int flag, @IntRange(from = 1, to = 4) int times) {
+    public static OrderTask setManDownPayload(@IntRange(from = 0, to = 1) int flag, @IntRange(from = 1, to = 4) int times) {
         ParamsWriteTask task = new ParamsWriteTask();
-        task.setPayloadInfo(flag, times, ParamsKeyEnum.KEY_DEVICE_INFO_PAYLOAD.getParamsKey());
+        task.setPayloadInfo(flag, times, ParamsKeyEnum.KEY_MAN_DOWN_PAYLOAD.getParamsKey());
         return task;
     }
 
@@ -2226,6 +2275,12 @@ public class OrderTaskAssembler {
     public static OrderTask setBatteryReset() {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setBatteryReset();
+        return task;
+    }
+
+    public static OrderTask setIdleReset() {
+        ParamsWriteTask task = new ParamsWriteTask();
+        task.setIdleReset();
         return task;
     }
 

@@ -51,6 +51,7 @@
     <string name="shock_detection">Shock Detection</string>
     <string name="man_down_detection">ManDown Detection</string>
     <string name="alarm_function">Alarm Function</string>
+    <string name="tamper_alarm_function">Tamper Alarm Function</string>
     <string name="temp_monitor_settings">Temperature Monitor Settings</string>
     <string name="light_monitor_settings">Lighting Monitor Settings</string>
     <string name="active_state_count">Active State Count</string>

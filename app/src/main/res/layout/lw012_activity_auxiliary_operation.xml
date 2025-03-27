@@ -145,7 +145,7 @@
                 android:drawableRight="@drawable/lw012_ic_arrow_right"
                 android:gravity="center_vertical"
                 android:onClick="onAlarmFunction"
-                android:text="@string/alarm_function"
+                android:text="@string/tamper_alarm_function"
                 android:textColor="@color/lw012_black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -153,55 +153,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_man_down_detection" />
 
-            <View
-                style="@style/lw012_divider_line"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAlarmFunction" />
 
-            <TextView
-                android:id="@+id/tvTempMonitor"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:drawableRight="@drawable/lw012_ic_arrow_right"
-                android:gravity="center_vertical"
-                android:onClick="onTempMonitor"
-                android:text="@string/temp_monitor_settings"
-                android:textColor="@color/lw012_black_333333"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvAlarmFunction" />
-
-            <View
-                style="@style/lw012_divider_line"
-                android:layout_width="0dp"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTempMonitor" />
-
-            <TextView
-                android:id="@+id/tvLightMonitor"
-                android:layout_width="0dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:clickable="true"
-                android:drawableRight="@drawable/lw012_ic_arrow_right"
-                android:gravity="center_vertical"
-                android:onClick="onLightMonitor"
-                android:text="@string/light_monitor_settings"
-                android:textColor="@color/lw012_black_333333"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvTempMonitor" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

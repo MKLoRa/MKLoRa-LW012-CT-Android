@@ -19,6 +19,7 @@ import java.util.ArrayList;
 public class PositionFragment extends Fragment {
     private static final String TAG = PositionFragment.class.getSimpleName();
     private Lw012FragmentPosBinding mBind;
+    private boolean mOfflineLocationEnable;
     private DeviceInfoActivity activity;
     private boolean mExtremeModeEnable;
     private boolean mVoltageReportEnable;
@@ -41,6 +42,11 @@ public class PositionFragment extends Fragment {
         return mBind.getRoot();
     }
 
+    public void setOfflineLocationEnable(int enable) {
+        mOfflineLocationEnable = enable == 1;
+        mBind.ivOfflineFix.setImageResource(mOfflineLocationEnable ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
+    }
+
     public void setExtremeModeEnable(int enable) {
         mExtremeModeEnable = enable == 1;
         mBind.ivGPSExtremeMode.setImageResource(mExtremeModeEnable ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
@@ -51,7 +57,14 @@ public class PositionFragment extends Fragment {
         mBind.ivVoltageReport.setImageResource(mVoltageReportEnable ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
     }
 
-
+    public void changeOfflineFix() {
+        mOfflineLocationEnable = !mOfflineLocationEnable;
+        activity.showSyncingProgressDialog();
+        ArrayList<OrderTask> orderTasks = new ArrayList<>();
+        orderTasks.add(OrderTaskAssembler.setOfflineLocationEnable(mOfflineLocationEnable ? 1 : 0));
+        orderTasks.add(OrderTaskAssembler.getOfflineLocationEnable());
+        LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
+    }
 
     public void changeExtremeMode() {
         mExtremeModeEnable = !mExtremeModeEnable;
@@ -61,6 +74,7 @@ public class PositionFragment extends Fragment {
         orderTasks.add(OrderTaskAssembler.getGPSExtremeModeL76());
         LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
+
     public void changeVoltageReport() {
         mVoltageReportEnable = !mVoltageReportEnable;
         activity.showSyncingProgressDialog();
