@@ -17,7 +17,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityDownlinkForPosBinding;
-import com.moko.lw012ct.dialog.BottomDialog;
+import com.moko.lib.loraui.dialog.BottomDialog;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
 import com.moko.support.lw012ct.OrderTaskAssembler;

@@ -12,7 +12,7 @@ import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivitySelftestBinding;
-import com.moko.lw012ct.dialog.AlertMessageDialog;
+import com.moko.lib.loraui.dialog.AlertMessageDialog;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
 import com.moko.support.lw012ct.OrderTaskAssembler;
 import com.moko.support.lw012ct.entity.OrderCHAR;

@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lw012_grey_ebebeb"
+    android:background="@color/grey_ebebeb"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/lw012_blue_2f84d0">
+        android:background="@color/blue_2f84d0">
 
         <TextView
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:drawableLeft="@drawable/lw012_ic_back"
+            android:drawableLeft="@drawable/ic_back"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
             android:onClick="onBack"
             android:paddingLeft="16dp"
             android:text=""
-            android:textColor="@color/lw012_white_ffffff"
+            android:textColor="@color/white_ffffff"
             android:textSize="15sp" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/temp_monitor_settings"
-            android:textColor="@color/lw012_white_ffffff"
+            android:textColor="@color/white_ffffff"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:onClick="onSave"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:src="@drawable/lw012_ic_save" />
+            android:src="@drawable/ic_save" />
 
     </RelativeLayout>
 
@@ -58,7 +58,7 @@
             android:id="@+id/cl_sample_rate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/lw012_white_ffffff"
+            android:background="@color/white_ffffff"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:padding="10dp">
@@ -69,9 +69,9 @@
                 android:layout_height="40dp"
                 android:button="@null"
                 android:checked="false"
-                android:drawableRight="@drawable/lw012_selector_cb_btn"
+                android:drawableRight="@drawable/selector_cb_btn"
                 android:text="Function Switch"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -79,7 +79,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                style="@style/lw012_divider_line"
+                style="@style/divider_line"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sample Rate"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/et_sample_rate"
@@ -105,8 +105,8 @@
                 android:hint="1~3600"
                 android:inputType="number"
                 android:maxLength="4"
-                android:textColor="@color/lw012_black_333333"
-                android:textColorHint="@color/lw012_grey_ebebeb"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_ebebeb"
                 android:textSize="15sp"
                 app:layout_constraintHorizontal_bias="0.85"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="S"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/et_sample_rate"
@@ -132,7 +132,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
-            android:background="@color/lw012_white_ffffff"
+            android:background="@color/white_ffffff"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
@@ -144,7 +144,7 @@
                 android:drawableRight="@drawable/lw012_ic_temp"
                 android:drawablePadding="20dp"
                 android:text="Temp:"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
@@ -154,7 +154,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text=""
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp" />
 
         </LinearLayout>
@@ -164,7 +164,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:background="@color/lw012_white_ffffff"
+            android:background="@color/white_ffffff"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:padding="10dp">
@@ -175,9 +175,9 @@
                 android:layout_height="40dp"
                 android:button="@null"
                 android:checked="false"
-                android:drawableRight="@drawable/lw012_selector_cb_btn"
+                android:drawableRight="@drawable/selector_cb_btn"
                 android:text="Temp Threshold Alarm"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -185,7 +185,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <View
-                style="@style/lw012_divider_line"
+                style="@style/divider_line"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -195,7 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Max."
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/et_alarm_max"
@@ -212,8 +212,8 @@
                 android:inputType="numberSigned"
                 android:maxLength="3"
                 android:text=""
-                android:textColor="@color/lw012_black_333333"
-                android:textColorHint="@color/lw012_grey_ebebeb"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_ebebeb"
                 android:textSize="15sp"
                 app:layout_constraintHorizontal_bias="0.85"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -226,7 +226,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="℃"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/et_alarm_max"
@@ -234,7 +234,7 @@
                 app:layout_constraintTop_toTopOf="@id/et_alarm_max" />
 
             <View
-                style="@style/lw012_divider_line"
+                style="@style/divider_line"
                 android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -244,7 +244,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Min."
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/et_alarm_min"
@@ -261,8 +261,8 @@
                 android:inputType="numberSigned"
                 android:maxLength="3"
                 android:text=""
-                android:textColor="@color/lw012_black_333333"
-                android:textColorHint="@color/lw012_grey_ebebeb"
+                android:textColor="@color/black_333333"
+                android:textColorHint="@color/grey_ebebeb"
                 android:textSize="15sp"
                 app:layout_constraintHorizontal_bias="0.85"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -275,7 +275,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="℃"
-                android:textColor="@color/lw012_black_333333"
+                android:textColor="@color/black_333333"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/et_alarm_min"

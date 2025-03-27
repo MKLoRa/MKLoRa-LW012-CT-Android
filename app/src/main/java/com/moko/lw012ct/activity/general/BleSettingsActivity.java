@@ -16,7 +16,7 @@ import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.R;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityBleSettingsBinding;
-import com.moko.lw012ct.dialog.ChangePasswordDialog;
+import com.moko.lib.loraui.dialog.ChangePasswordDialog;
 import com.moko.lw012ct.entity.TxPowerEnum;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
@@ -168,7 +168,7 @@ public class BleSettingsActivity extends BaseActivity implements SeekBar.OnSeekB
                                             int enable = value[5] & 0xFF;
                                             mPasswordVerifyEnable = enable == 1;
                                             mPasswordVerifyDisable = enable == 0;
-                                            mBind.ivLoginMode.setImageResource(mPasswordVerifyEnable ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
+                                            mBind.ivLoginMode.setImageResource(mPasswordVerifyEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
                                             mBind.tvChangePassword.setVisibility(mPasswordVerifyEnable ? View.VISIBLE : View.GONE);
                                         }
                                         break;
@@ -289,7 +289,7 @@ public class BleSettingsActivity extends BaseActivity implements SeekBar.OnSeekB
         if (isWindowLocked())
             return;
         mPasswordVerifyEnable = !mPasswordVerifyEnable;
-        mBind.ivLoginMode.setImageResource(mPasswordVerifyEnable ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
+        mBind.ivLoginMode.setImageResource(mPasswordVerifyEnable ? R.drawable.ic_checked : R.drawable.ic_unchecked);
         mBind.tvChangePassword.setVisibility(mPasswordVerifyEnable ? View.VISIBLE : View.GONE);
     }
 

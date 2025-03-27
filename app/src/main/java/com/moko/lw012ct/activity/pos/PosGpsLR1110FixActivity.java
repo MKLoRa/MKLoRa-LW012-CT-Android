@@ -11,7 +11,7 @@ import com.moko.ble.lib.event.OrderTaskResponseEvent;
 import com.moko.ble.lib.task.OrderTaskResponse;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityPosGpsLr1110Binding;
-import com.moko.lw012ct.dialog.BottomDialog;
+import com.moko.lib.loraui.dialog.BottomDialog;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.entity.OrderCHAR;
 

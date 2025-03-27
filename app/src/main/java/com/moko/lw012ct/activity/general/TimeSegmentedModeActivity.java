@@ -22,7 +22,7 @@ import com.moko.lw012ct.R;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.adapter.TimeSegmentedPointAdapter;
 import com.moko.lw012ct.databinding.Lw012ActivityTimeSegmentedModeBinding;
-import com.moko.lw012ct.dialog.BottomDialog;
+import com.moko.lib.loraui.dialog.BottomDialog;
 import com.moko.lw012ct.entity.TimeSegmentedPoint;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;

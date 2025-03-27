@@ -35,8 +35,8 @@ import com.moko.lw012ct.activity.general.AxisSettingActivity;
 import com.moko.lw012ct.activity.general.BleSettingsActivity;
 import com.moko.lw012ct.activity.general.DeviceModeActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityDeviceInfoBinding;
-import com.moko.lw012ct.dialog.AlertMessageDialog;
-import com.moko.lw012ct.dialog.ChangePasswordDialog;
+import com.moko.lib.loraui.dialog.AlertMessageDialog;
+import com.moko.lib.loraui.dialog.ChangePasswordDialog;
 import com.moko.lw012ct.fragment.DeviceFragment;
 import com.moko.lw012ct.fragment.GeneralFragment;
 import com.moko.lw012ct.fragment.LoRaFragment;
@@ -84,7 +84,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         fragmentManager = getFragmentManager();
         initFragment();
         mBind.radioBtnLora.setChecked(true);
-        mBind.tvTitle.setText(R.string.title_lora_lw012);
+        mBind.tvTitle.setText(R.string.title_lora);
         mBind.rgOptions.setOnCheckedChangeListener(this);
         EventBus.getDefault().register(this);
         mUploadMode = new ArrayList<>();
@@ -583,7 +583,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
     }
 
     private void showLoRaAndGetData() {
-        mBind.tvTitle.setText(R.string.title_lora_lw012);
+        mBind.tvTitle.setText(R.string.title_lora);
         mBind.ivSave.setVisibility(View.GONE);
         fragmentManager.beginTransaction()
                 .show(loraFragment)

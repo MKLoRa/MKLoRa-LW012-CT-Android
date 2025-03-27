@@ -20,7 +20,7 @@ import com.moko.lw012ct.R;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.adapter.TimePointAdapter;
 import com.moko.lw012ct.databinding.Lw012ActivityTimingModeBinding;
-import com.moko.lw012ct.dialog.BottomDialog;
+import com.moko.lib.loraui.dialog.BottomDialog;
 import com.moko.lw012ct.entity.TimePoint;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;

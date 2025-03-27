@@ -25,7 +25,7 @@ import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.activity.LoRaLW012CTMainActivity;
 import com.moko.lw012ct.adapter.ExportDataListAdapter;
 import com.moko.lw012ct.databinding.Lw012ActivityExportDataBinding;
-import com.moko.lw012ct.dialog.AlertMessageDialog;
+import com.moko.lib.loraui.dialog.AlertMessageDialog;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.lw012ct.utils.Utils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
@@ -252,7 +252,7 @@ public class ExportDataActivity extends BaseActivity {
                                                 mIsSync = true;
                                                 mBind.tvEmpty.setEnabled(false);
                                                 mBind.tvExport.setEnabled(false);
-                                                Animation animation = AnimationUtils.loadAnimation(this, R.anim.lw012_rotate_refresh);
+                                                Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_refresh);
                                                 mBind.ivSync.startAnimation(animation);
                                                 mBind.tvSync.setText("Stop");
                                             } else {
@@ -276,7 +276,7 @@ public class ExportDataActivity extends BaseActivity {
                                             mBind.tvStart.setEnabled(false);
                                             mBind.tvEmpty.setEnabled(false);
                                             mBind.tvExport.setEnabled(false);
-                                            Animation animation = AnimationUtils.loadAnimation(this, R.anim.lw012_rotate_refresh);
+                                            Animation animation = AnimationUtils.loadAnimation(this, R.anim.rotate_refresh);
                                             mBind.ivSync.startAnimation(animation);
                                             mBind.tvSync.setText("Stop");
                                         }

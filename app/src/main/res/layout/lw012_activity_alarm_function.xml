@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lw012_grey_f2f2f2"
+    android:background="@color/grey_f2f2f2"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/lw012_blue_2f84d0">
+        android:background="@color/blue_2f84d0">
 
         <TextView
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:clickable="true"
-            android:drawableLeft="@drawable/lw012_ic_back"
+            android:drawableLeft="@drawable/ic_back"
             android:drawablePadding="6dp"
             android:gravity="center_vertical"
             android:onClick="onBack"
             android:paddingLeft="16dp"
             android:text=""
-            android:textColor="@color/lw012_white_ffffff"
+            android:textColor="@color/white_ffffff"
             android:textSize="15sp" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/tamper_alarm_function"
-            android:textColor="@color/lw012_white_ffffff"
+            android:textColor="@color/white_ffffff"
             android:textSize="17sp"
             android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
             android:onClick="onSave"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
-            android:src="@drawable/lw012_ic_save" />
+            android:src="@drawable/ic_save" />
     </RelativeLayout>
 
     <CheckBox
@@ -53,14 +53,14 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/lw012_white_ffffff"
+        android:background="@color/white_ffffff"
         android:button="@null"
-        android:drawableRight="@drawable/lw012_selector_cb_btn"
+        android:drawableRight="@drawable/selector_cb_btn"
         android:gravity="center_vertical"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:text="Function Switch"
-        android:textColor="@color/lw012_black_333333"
+        android:textColor="@color/black_333333"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/lw012_white_ffffff"
+        android:background="@color/white_ffffff"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:paddingBottom="10dp">
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="Light Threshold"
-            android:textColor="@color/lw012_black_333333"
+            android:textColor="@color/black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@id/etLightThreshold"
@@ -98,8 +98,8 @@
             android:hint="10~200"
             android:inputType="number"
             android:maxLength="3"
-            android:textColor="@color/lw012_black_333333"
-            android:textColorHint="@color/lw012_grey_666666"
+            android:textColor="@color/black_333333"
+            android:textColorHint="@color/grey_666666"
             android:textSize="15sp"
             app:layout_constraintRight_toLeftOf="@+id/tvLightThresholdUnit"
             app:layout_constraintTop_toTopOf="parent" />
@@ -109,14 +109,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="lux"
-            android:textColor="@color/lw012_black_333333"
+            android:textColor="@color/black_333333"
             android:textSize="15sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/etLightThreshold"
             app:layout_constraintRight_toRightOf="parent" />
 
         <View
             android:id="@+id/line2"
-            style="@style/lw012_divider_line"
+            style="@style/divider_line"
             android:layout_marginTop="10dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -129,7 +129,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
             android:text="Tamper Alarm Report Interval"
-            android:textColor="@color/lw012_black_333333"
+            android:textColor="@color/black_333333"
             android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@id/etReportInterval"
@@ -147,8 +147,8 @@
             android:hint="1~14400"
             android:inputType="number"
             android:maxLength="5"
-            android:textColor="@color/lw012_black_333333"
-            android:textColorHint="@color/lw012_grey_666666"
+            android:textColor="@color/black_333333"
+            android:textColorHint="@color/grey_666666"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/tvReportIntervalUnit"
             app:layout_constraintRight_toLeftOf="@+id/tvReportIntervalUnit"
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mins"
-            android:textColor="@color/lw012_black_333333"
+            android:textColor="@color/black_333333"
             android:textSize="15sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/etReportInterval"
             app:layout_constraintRight_toRightOf="parent" />

@@ -17,7 +17,7 @@ import com.moko.ble.lib.utils.MokoUtils;
 import com.moko.lw012ct.R;
 import com.moko.lw012ct.activity.BaseActivity;
 import com.moko.lw012ct.databinding.Lw012ActivityOnOffSettingsBinding;
-import com.moko.lw012ct.dialog.AlertMessageDialog;
+import com.moko.lib.loraui.dialog.AlertMessageDialog;
 import com.moko.lw012ct.utils.ToastUtils;
 import com.moko.support.lw012ct.LoRaLW012CTMokoSupport;
 import com.moko.support.lw012ct.OrderTaskAssembler;
@@ -152,14 +152,14 @@ public class OnOffSettingsActivity extends BaseActivity {
                                     if (length == 1) {
                                         int enable = value[5] & 0xFF;
                                         shutdownPayloadOpen = enable == 1;
-                                        mBind.ivShutdownPayload.setImageResource(enable == 1 ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
+                                        mBind.ivShutdownPayload.setImageResource(enable == 1 ? R.drawable.ic_checked : R.drawable.ic_unchecked);
                                     }
                                     break;
                                 case KEY_OFF_BY_BUTTON:
                                     if (length == 1) {
                                         int enable = value[5] & 0xFF;
                                         offByButtonOpen = enable == 1;
-                                        mBind.ivOffByButton.setImageResource(enable == 1 ? R.drawable.lw012_ic_checked : R.drawable.lw012_ic_unchecked);
+                                        mBind.ivOffByButton.setImageResource(enable == 1 ? R.drawable.ic_checked : R.drawable.ic_unchecked);
                                     }
                                     break;
                             }
