@@ -125,9 +125,9 @@ public class BatteryConsumeActivity extends BaseActivity {
                                         break;
                                     case KEY_BATTERY_INFO_ALL:
                                         if (length == 32) {
-                                            int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 7));
+                                            int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 9));
                                             mBind.tvRuntimeAll.setText(String.format("%d s", runtime));
-                                            int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 7, 13));
+                                            int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 9, 13));
                                             mBind.tvAdvTimesAll.setText(String.format("%d times", advTimes));
                                             int axisDuration = MokoUtils.toInt(Arrays.copyOfRange(value, 13, 17));
                                             mBind.tvAxisDurationAll.setText(String.format("%d ms", axisDuration));
