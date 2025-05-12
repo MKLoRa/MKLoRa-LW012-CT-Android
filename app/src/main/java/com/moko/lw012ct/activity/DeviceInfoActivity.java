@@ -578,6 +578,7 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
         showSyncingProgressDialog();
         List<OrderTask> orderTasks = new ArrayList<>();
         orderTasks.add(OrderTaskAssembler.getGPSExtremeModeL76());
+        orderTasks.add(OrderTaskAssembler.getOfflineLocationEnable());
         orderTasks.add(OrderTaskAssembler.getVoltageReportEnable());
         LoRaLW012CTMokoSupport.getInstance().sendOrder(orderTasks.toArray(new OrderTask[]{}));
     }
