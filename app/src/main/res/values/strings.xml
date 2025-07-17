@@ -7,7 +7,6 @@
     <string name="title_device">DEVICE</string>
     <string name="connection_setting">Connection Settings</string>
     <string name="application_setting">Application Settings</string>
-    <string name="wifi_fix">WIFI Fix</string>
     <string name="bluetooth_fix">Bluetooth Fix</string>
     <string name="gps_fix">GPS Fix</string>
     <string name="general_device_mode">Device Mode</string>
@@ -23,7 +22,6 @@
     <string name="downlink_for_position">Downlink For Position</string>
     <string name="shock_detection">Shock Detection</string>
     <string name="man_down_detection">ManDown Detection</string>
-    <string name="alarm_function">Alarm Function</string>
     <string name="tamper_alarm_function">Tamper Alarm Function</string>
     <string name="temp_monitor_settings">Temperature Monitor Settings</string>
     <string name="light_monitor_settings">Lighting Monitor Settings</string>
@@ -32,7 +30,6 @@
     <string name="on_off_settings">ON/OFF Settings</string>
     <string name="local_data_sync">Local Data Sync</string>
     <string name="indicator_settings">Indicator Settings</string>
-    <string name="low_power_prompt_tips">*When the battery is less than or equal to %s, the green LED will flash once every 10 seconds.</string>
     <string name="bxp_t_h"><![CDATA[BXP - T&H]]></string>
     <string name="battery_reset_tips">*After replace with the new battery, need to click \"Reset\", otherwise the low power prompt will be unnormal.</string>
 </resources>
