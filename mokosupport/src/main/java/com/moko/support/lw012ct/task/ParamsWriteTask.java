@@ -2595,6 +2595,82 @@ public class ParamsWriteTask extends OrderTask {
         };
     }
 
+    public void setCondition1VoltageThreshold(@IntRange(from = 44, to = 64) int threshold) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_CONDITION_1_VOLTAGE_THRESHOLD.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) threshold
+        };
+    }
+
+    public void setCondition1MinSampleInterval(@IntRange(from = 1, to = 1440) int interval) {
+        byte[] rawDataBytes = MokoUtils.toByteArray(interval, 2);
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_CONDITION_1_MIN_SAMPLE_INTERVAL.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x02,
+                (byte) rawDataBytes[0],
+                (byte) rawDataBytes[1]
+        };
+    }
+
+    public void setCondition1SampleTimes(@IntRange(from = 1, to = 100) int times) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_CONDITION_1_SAMPLE_TIMES.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) times
+        };
+    }
+
+    public void setCondition2VoltageThreshold(@IntRange(from = 44, to = 64) int threshold) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_CONDITION_2_VOLTAGE_THRESHOLD.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) threshold
+        };
+    }
+
+    public void setCondition2MinSampleInterval(@IntRange(from = 1, to = 1440) int interval) {
+        byte[] rawDataBytes = MokoUtils.toByteArray(interval, 2);
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_CONDITION_2_MIN_SAMPLE_INTERVAL.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x02,
+                (byte) rawDataBytes[0],
+                (byte) rawDataBytes[1]
+        };
+    }
+
+    public void setCondition2SampleTimes(@IntRange(from = 1, to = 100) int times) {
+        byte[] cmdBytes = MokoUtils.toByteArray(ParamsKeyEnum.KEY_CONDITION_2_SAMPLE_TIMES.getParamsKey(), 2);
+        response.responseValue = data = new byte[]{
+                (byte) 0xED,
+                (byte) 0x01,
+                (byte) cmdBytes[0],
+                (byte) cmdBytes[1],
+                (byte) 0x01,
+                (byte) times
+        };
+    }
+
     public void setFilterNameRules(ArrayList<String> filterNameRules) {
         int length = 0;
         for (String name : filterNameRules) {

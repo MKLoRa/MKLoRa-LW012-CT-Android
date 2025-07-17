@@ -133,6 +133,24 @@
                     android:text=""
                     android:textColor="@color/black_333333"
                     android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_static_pos_payload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_motion_pos_payload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -271,6 +289,24 @@
                     android:text=""
                     android:textColor="@color/black_333333"
                     android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_static_pos_payload_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_motion_pos_payload_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -355,6 +391,24 @@
 
                 <TextView
                     android:id="@+id/tv_battery_consume_last"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_static_pos_payload_last"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/black_333333"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_motion_pos_payload_last"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:gravity="center_vertical"

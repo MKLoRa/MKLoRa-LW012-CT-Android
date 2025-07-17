@@ -67,6 +67,18 @@ public enum ParamsKeyEnum implements Serializable {
     KEY_LOW_POWER_REPORT_INTERVAL(0x0107),
     // 充电自动开机
     KEY_AUTO_POWER_ON_ENABLE(0x0108),
+    // 条件1低电电压值
+    KEY_CONDITION_1_VOLTAGE_THRESHOLD(0x010A),
+    // 条件1最小采样间隔
+    KEY_CONDITION_1_MIN_SAMPLE_INTERVAL(0x010B),
+    // 条件1连续采样次数
+    KEY_CONDITION_1_SAMPLE_TIMES(0x010C),
+    // 条件2低电电压值
+    KEY_CONDITION_2_VOLTAGE_THRESHOLD(0x010D),
+    // 条件2最小采样间隔
+    KEY_CONDITION_2_MIN_SAMPLE_INTERVAL(0x010E),
+    // 条件2连续采样次数
+    KEY_CONDITION_2_SAMPLE_TIMES(0x010F),
 
 
     //// 蓝牙相关参数

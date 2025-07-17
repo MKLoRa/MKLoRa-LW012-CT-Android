@@ -104,7 +104,7 @@ public class BatteryConsumeActivity extends BaseActivity {
                                 // read
                                 switch (configKeyEnum) {
                                     case KEY_BATTERY_INFO:
-                                        if (length == 32) {
+                                        if (length == 40) {
                                             int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 9));
                                             mBind.tvRuntime.setText(String.format("%d s", runtime));
                                             int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 9, 13));
@@ -121,10 +121,14 @@ public class BatteryConsumeActivity extends BaseActivity {
                                             mBind.tvLoraPower.setText(String.format("%d mAS", loraPower));
                                             String batteryConsumeStr = MokoUtils.getDecimalFormat("0.###").format(MokoUtils.toInt(Arrays.copyOfRange(value, 33, 37)) * 0.001f);
                                             mBind.tvBatteryConsume.setText(String.format("%s mAH", batteryConsumeStr));
+                                            int staticUploadNum = MokoUtils.toInt(Arrays.copyOfRange(value, 37, 41));
+                                            mBind.tvStaticPosPayload.setText(String.format("%d  pieces of payload 1", staticUploadNum));
+                                            int moveUploadNum = MokoUtils.toInt(Arrays.copyOfRange(value, 41, 45));
+                                            mBind.tvMotionPosPayload.setText(String.format("%d  pieces of payload 2", moveUploadNum));
                                         }
                                         break;
                                     case KEY_BATTERY_INFO_ALL:
-                                        if (length == 32) {
+                                        if (length == 40) {
                                             int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 9));
                                             mBind.tvRuntimeAll.setText(String.format("%d s", runtime));
                                             int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 9, 13));
@@ -141,10 +145,14 @@ public class BatteryConsumeActivity extends BaseActivity {
                                             mBind.tvLoraPowerAll.setText(String.format("%d mAS", loraPower));
                                             String batteryConsumeStr = MokoUtils.getDecimalFormat("0.###").format(MokoUtils.toInt(Arrays.copyOfRange(value, 33, 37)) * 0.001f);
                                             mBind.tvBatteryConsumeAll.setText(String.format("%s mAH", batteryConsumeStr));
+                                            int staticUploadNum = MokoUtils.toInt(Arrays.copyOfRange(value, 37, 41));
+                                            mBind.tvStaticPosPayloadAll.setText(String.format("%d  pieces of payload 1", staticUploadNum));
+                                            int moveUploadNum = MokoUtils.toInt(Arrays.copyOfRange(value, 41, 45));
+                                            mBind.tvMotionPosPayloadAll.setText(String.format("%d  pieces of payload 2", moveUploadNum));
                                         }
                                         break;
                                     case KEY_BATTERY_INFO_LAST:
-                                        if (length == 32) {
+                                        if (length == 40) {
                                             int runtime = MokoUtils.toInt(Arrays.copyOfRange(value, 5, 9));
                                             mBind.tvRuntimeLast.setText(String.format("%d s", runtime));
                                             int advTimes = MokoUtils.toInt(Arrays.copyOfRange(value, 9, 13));
@@ -161,6 +169,10 @@ public class BatteryConsumeActivity extends BaseActivity {
                                             mBind.tvLoraPowerLast.setText(String.format("%d mAS", loraPower));
                                             String batteryConsumeStr = MokoUtils.getDecimalFormat("0.###").format(MokoUtils.toInt(Arrays.copyOfRange(value, 33, 37)) * 0.001f);
                                             mBind.tvBatteryConsumeLast.setText(String.format("%s mAH", batteryConsumeStr));
+                                            int staticUploadNum = MokoUtils.toInt(Arrays.copyOfRange(value, 37, 41));
+                                            mBind.tvStaticPosPayloadLast.setText(String.format("%d  pieces of payload 1", staticUploadNum));
+                                            int moveUploadNum = MokoUtils.toInt(Arrays.copyOfRange(value, 41, 45));
+                                            mBind.tvMotionPosPayloadLast.setText(String.format("%d  pieces of payload 2", moveUploadNum));
                                         }
                                         break;
                                 }
