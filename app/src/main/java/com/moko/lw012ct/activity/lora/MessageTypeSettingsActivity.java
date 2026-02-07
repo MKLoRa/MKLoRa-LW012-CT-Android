@@ -42,6 +42,7 @@ public class MessageTypeSettingsActivity extends BaseActivity {
     private final ArrayList<String> payloadTypes = new ArrayList<>(4);
     private final ArrayList<String> retransmissionTimes = new ArrayList<>(8);
     private int heartbeatFlag;
+    private int lowPowerFlag;
     private int positioningFlag;
     private int tamperAlarmFlag;
     private int manDownFlag;
@@ -64,6 +65,7 @@ public class MessageTypeSettingsActivity extends BaseActivity {
         mBind.tvTitle.postDelayed(() -> {
             List<OrderTask> orderTasks = new ArrayList<>(8);
             orderTasks.add(OrderTaskAssembler.getHeartbeatPayload());
+            orderTasks.add(OrderTaskAssembler.getLowPowerPayload());
             orderTasks.add(OrderTaskAssembler.getEventPayload());
             orderTasks.add(OrderTaskAssembler.getPositioningPayload());
             orderTasks.add(OrderTaskAssembler.getShockPayload());
@@ -86,35 +88,43 @@ public class MessageTypeSettingsActivity extends BaseActivity {
             int index = unconfirmed.equals(mBind.tvHeartbeatPayloadType.getText().toString().trim()) ? 0 : 1;
             showBottomDialog(payloadTypes, index, mBind.tvHeartbeatPayloadType, 1);
         });
+        mBind.tvLowPowerPayloadType.setOnClickListener(v -> {
+            int index = unconfirmed.equals(mBind.tvLowPowerPayloadType.getText().toString().trim()) ? 0 : 1;
+            showBottomDialog(payloadTypes, index, mBind.tvLowPowerPayloadType, 2);
+        });
         mBind.tvPositioningPayloadType.setOnClickListener(v -> {
             int index = unconfirmed.equals(mBind.tvPositioningPayloadType.getText().toString().trim()) ? 0 : 1;
-            showBottomDialog(payloadTypes, index, mBind.tvPositioningPayloadType, 2);
+            showBottomDialog(payloadTypes, index, mBind.tvPositioningPayloadType, 3);
         });
         mBind.tvTamperAlarmPayloadType.setOnClickListener(v -> {
             int index = unconfirmed.equals(mBind.tvTamperAlarmPayloadType.getText().toString().trim()) ? 0 : 1;
-            showBottomDialog(payloadTypes, index, mBind.tvTamperAlarmPayloadType, 3);
+            showBottomDialog(payloadTypes, index, mBind.tvTamperAlarmPayloadType, 4);
         });
         mBind.tvShockPayloadType.setOnClickListener(v -> {
             int index = unconfirmed.equals(mBind.tvShockPayloadType.getText().toString().trim()) ? 0 : 1;
-            showBottomDialog(payloadTypes, index, mBind.tvShockPayloadType, 4);
+            showBottomDialog(payloadTypes, index, mBind.tvShockPayloadType, 5);
         });
         mBind.tvManDownPayloadType.setOnClickListener(v -> {
             int index = unconfirmed.equals(mBind.tvManDownPayloadType.getText().toString().trim()) ? 0 : 1;
-            showBottomDialog(payloadTypes, index, mBind.tvManDownPayloadType, 5);
+            showBottomDialog(payloadTypes, index, mBind.tvManDownPayloadType, 6);
         });
         mBind.tvEventPayloadType.setOnClickListener(v -> {
             int index = unconfirmed.equals(mBind.tvEventPayloadType.getText().toString().trim()) ? 0 : 1;
-            showBottomDialog(payloadTypes, index, mBind.tvEventPayloadType, 6);
+            showBottomDialog(payloadTypes, index, mBind.tvEventPayloadType, 7);
         });
         mBind.tvGPSLimitPayloadType.setOnClickListener(v -> {
             int index = unconfirmed.equals(mBind.tvGPSLimitPayloadType.getText().toString().trim()) ? 0 : 1;
-            showBottomDialog(payloadTypes, index, mBind.tvGPSLimitPayloadType, 7);
+            showBottomDialog(payloadTypes, index, mBind.tvGPSLimitPayloadType, 8);
         });
 
 
         mBind.tvHeartbeatTimes.setOnClickListener(v -> {
             int index = Integer.parseInt(mBind.tvHeartbeatTimes.getText().toString().trim());
             showBottomDialog(retransmissionTimes, index, mBind.tvHeartbeatTimes, 0);
+        });
+        mBind.tvLowPowerTimes.setOnClickListener(v -> {
+            int index = Integer.parseInt(mBind.tvLowPowerTimes.getText().toString().trim());
+            showBottomDialog(retransmissionTimes, index, mBind.tvLowPowerTimes, 0);
         });
         mBind.tvPositioningTimes.setOnClickListener(v -> {
             int index = Integer.parseInt(mBind.tvPositioningTimes.getText().toString().trim());
@@ -186,6 +196,15 @@ public class MessageTypeSettingsActivity extends BaseActivity {
                                         setMaxTimes(enable, mBind.lineHeartbeatTime, mBind.layoutHeartbeatTime);
                                     }
                                     break;
+                                case KEY_LOW_POWER_PAYLOAD:
+                                    if (length == 2) {
+                                        int enable = value[5] & 0xff;
+                                        int times = (value[6] & 0xff) - 1;
+                                        mBind.tvLowPowerPayloadType.setText(enable == 1 ? confirmed : unconfirmed);
+                                        mBind.tvLowPowerTimes.setText(String.valueOf(times));
+                                        setMaxTimes(enable, mBind.lineLowPowerTime, mBind.layoutLowPowerTime);
+                                    }
+                                    break;
                                 case KEY_POSITIONING_PAYLOAD:
                                     if (length == 2) {
                                         int enable = value[5] & 0xff;
@@ -246,6 +265,9 @@ public class MessageTypeSettingsActivity extends BaseActivity {
                                 case KEY_HEARTBEAT_PAYLOAD:
                                     heartbeatFlag = value[5] & 0xff;
                                     break;
+                                case KEY_LOW_POWER_PAYLOAD:
+                                    lowPowerFlag = value[5] & 0xff;
+                                    break;
                                 case KEY_POSITIONING_PAYLOAD:
                                     positioningFlag = value[5] & 0xff;
                                     break;
@@ -263,8 +285,7 @@ public class MessageTypeSettingsActivity extends BaseActivity {
                                     break;
                                 case KEY_GPS_LIMIT_PAYLOAD:
                                     gpsLimitFlag = value[5] & 0xff;
-                                    if (heartbeatFlag == 1 && tamperAlarmFlag == 1 && eventFlag == 1 && manDownFlag == 1
-                                            && shockFlag == 1 && gpsLimitFlag == 1 && positioningFlag == 1) {
+                                    if (heartbeatFlag == 1 && lowPowerFlag == 1 && tamperAlarmFlag == 1 && eventFlag == 1 && manDownFlag == 1 && shockFlag == 1 && gpsLimitFlag == 1 && positioningFlag == 1) {
                                         ToastUtils.showToast(this, "Save Successfully！");
                                     } else {
                                         ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
@@ -293,16 +314,18 @@ public class MessageTypeSettingsActivity extends BaseActivity {
             if (type == 1) {
                 setMaxTimes(value, mBind.lineHeartbeatTime, mBind.layoutHeartbeatTime);
             } else if (type == 2) {
-                setMaxTimes(value, mBind.linePosTimes, mBind.layoutPosTimes);
+                setMaxTimes(value, mBind.lineLowPowerTime, mBind.layoutLowPowerTime);
             } else if (type == 3) {
-                setMaxTimes(value, mBind.lineTamperAlarmTime, mBind.layoutTamperAlarmTime);
+                setMaxTimes(value, mBind.linePosTimes, mBind.layoutPosTimes);
             } else if (type == 4) {
-                setMaxTimes(value, mBind.lineShockTimes, mBind.layoutShockTimes);
+                setMaxTimes(value, mBind.lineTamperAlarmTime, mBind.layoutTamperAlarmTime);
             } else if (type == 5) {
-                setMaxTimes(value, mBind.lineManDownTime, mBind.layoutManDownTime);
+                setMaxTimes(value, mBind.lineShockTimes, mBind.layoutShockTimes);
             } else if (type == 6) {
-                setMaxTimes(value, mBind.lineEventTimes, mBind.layoutEventTimes);
+                setMaxTimes(value, mBind.lineManDownTime, mBind.layoutManDownTime);
             } else if (type == 7) {
+                setMaxTimes(value, mBind.lineEventTimes, mBind.layoutEventTimes);
+            } else if (type == 8) {
                 setMaxTimes(value, mBind.lineGpsLimitTimes, mBind.layoutGpsLimitTimes);
             }
         });
@@ -317,6 +340,7 @@ public class MessageTypeSettingsActivity extends BaseActivity {
         showSyncingProgressDialog();
         shockFlag = 0;
         heartbeatFlag = 0;
+        lowPowerFlag = 0;
         tamperAlarmFlag = 0;
         eventFlag = 0;
         gpsLimitFlag = 0;
@@ -324,6 +348,8 @@ public class MessageTypeSettingsActivity extends BaseActivity {
         manDownFlag = 0;
         int heartbeatPayloadType = confirmed.equals(mBind.tvHeartbeatPayloadType.getText().toString().trim()) ? 1 : 0;
         int heartbeatTime = Integer.parseInt(mBind.tvHeartbeatTimes.getText().toString().trim()) + 1;
+        int lowPowerPayloadType = confirmed.equals(mBind.tvLowPowerPayloadType.getText().toString().trim()) ? 1 : 0;
+        int lowPowerTime = Integer.parseInt(mBind.tvLowPowerTimes.getText().toString().trim()) + 1;
         int positioningPayloadType = confirmed.equals(mBind.tvPositioningPayloadType.getText().toString().trim()) ? 1 : 0;
         int positioningTime = Integer.parseInt(mBind.tvPositioningTimes.getText().toString().trim()) + 1;
         int tamperAlarmPayloadType = confirmed.equals(mBind.tvTamperAlarmPayloadType.getText().toString().trim()) ? 1 : 0;
@@ -338,6 +364,7 @@ public class MessageTypeSettingsActivity extends BaseActivity {
         int gpsLimitTime = Integer.parseInt(mBind.tvGPSLimitTimes.getText().toString().trim()) + 1;
         List<OrderTask> orderTasks = new ArrayList<>(8);
         orderTasks.add(OrderTaskAssembler.setHeartbeatPayload(heartbeatPayloadType, heartbeatTime));
+        orderTasks.add(OrderTaskAssembler.setLowPowerPayload(lowPowerPayloadType, lowPowerTime));
         orderTasks.add(OrderTaskAssembler.setTamperAlarmPayload(tamperAlarmPayloadType, tamperAlarmTime));
         orderTasks.add(OrderTaskAssembler.setPositioningPayload(positioningPayloadType, positioningTime));
         orderTasks.add(OrderTaskAssembler.setShockPayload(shockPayloadType, shockTime));

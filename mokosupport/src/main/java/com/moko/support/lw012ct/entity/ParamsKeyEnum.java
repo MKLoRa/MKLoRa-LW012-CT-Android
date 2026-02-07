@@ -273,6 +273,8 @@ public enum ParamsKeyEnum implements Serializable {
 
     //心跳数据包上行配置
     KEY_HEARTBEAT_PAYLOAD(0x0551),
+    //低电包上行配置
+    KEY_LOW_POWER_PAYLOAD(0x0552),
     //事件信息包上行配置
     KEY_EVENT_PAYLOAD(0x0554),
     //定位数据包上行配置

@@ -1125,6 +1125,11 @@ public class OrderTaskAssembler {
         task.setData(ParamsKeyEnum.KEY_HEARTBEAT_PAYLOAD);
         return task;
     }
+    public static OrderTask getLowPowerPayload() {
+        ParamsReadTask task = new ParamsReadTask();
+        task.setData(ParamsKeyEnum.KEY_LOW_POWER_PAYLOAD);
+        return task;
+    }
 
     public static OrderTask getPositioningPayload() {
         ParamsReadTask task = new ParamsReadTask();
@@ -2268,6 +2273,11 @@ public class OrderTaskAssembler {
     public static OrderTask setHeartbeatPayload(@IntRange(from = 0, to = 1) int flag, @IntRange(from = 1, to = 4) int times) {
         ParamsWriteTask task = new ParamsWriteTask();
         task.setPayloadInfo(flag, times, ParamsKeyEnum.KEY_HEARTBEAT_PAYLOAD.getParamsKey());
+        return task;
+    }
+    public static OrderTask setLowPowerPayload(@IntRange(from = 0, to = 1) int flag, @IntRange(from = 1, to = 4) int times) {
+        ParamsWriteTask task = new ParamsWriteTask();
+        task.setPayloadInfo(flag, times, ParamsKeyEnum.KEY_LOW_POWER_PAYLOAD.getParamsKey());
         return task;
     }
 
