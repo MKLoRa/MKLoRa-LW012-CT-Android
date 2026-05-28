@@ -2,6 +2,8 @@
 
 Native Android SDK and demo app for LW012-CT devices. Supports BLE scanning, connection, protocol parameter read/write, device-initiated disconnect notifications, positioning and motion configuration, alarm settings, beacon filter rules, storage data export, and Nordic DFU firmware updates.
 
+Cross-platform reference (same protocol): [MKLoRa-LW012-CT-Flutter](https://github.com/MKLoRa/MKLoRa-LW012-CT-Flutter).
+
 ---
 
 ## Requirements
