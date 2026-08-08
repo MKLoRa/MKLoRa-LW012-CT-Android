@@ -229,18 +229,14 @@ public class DeviceInfoActivity extends BaseActivity implements RadioGroup.OnChe
                                         break;
                                     case KEY_TIME_ZONE:
                                     case KEY_LOW_POWER_PAYLOAD_ENABLE:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         break;
                                     case KEY_HEARTBEAT_INTERVAL:
                                     case KEY_GPS_EXTREME_MODE_L76C:
                                     case KEY_VOLTAGE_REPORT_ENABLE:
                                     case KEY_LOW_POWER_REPORT_INTERVAL:
                                     case KEY_OFFLINE_LOCATION_ENABLE:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         if (savedParamsError) {
                                             ToastUtils.showToast(DeviceInfoActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         } else {

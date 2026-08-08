@@ -106,14 +106,10 @@ public class ShockDetectionActivity extends BaseActivity {
                                     case KEY_SHOCK_DETECTION_ENABLE:
                                     case KEY_SHOCK_THRESHOLD:
                                     case KEY_SHOCK_REPORT_INTERVAL:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         break;
                                     case KEY_SHOCK_TIMEOUT:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         if (savedParamsError) {
                                             ToastUtils.showToast(ShockDetectionActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         } else {

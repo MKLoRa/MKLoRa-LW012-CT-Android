@@ -132,13 +132,10 @@ public class SelfTestActivity extends BaseActivity {
                                     case KEY_CONDITION_1_SAMPLE_TIMES:
                                     case KEY_CONDITION_2_VOLTAGE_THRESHOLD:
                                     case KEY_CONDITION_2_MIN_SAMPLE_INTERVAL:
-                                        if (result != 1)
-                                            savedParamsError = true;
+                                        savedParamsError |= result != 1;
                                         break;
                                     case KEY_CONDITION_2_SAMPLE_TIMES:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         if (savedParamsError)
                                             ToastUtils.showToast(this, "Opps！Save failed. Please check the input characters and try again.");
                                         else

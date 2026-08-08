@@ -94,14 +94,10 @@ public class PosGpsL76CFixActivity extends BaseActivity {
                                 int result = value[5] & 0xFF;
                                 switch (configKeyEnum) {
                                     case KEY_GPS_POS_TIMEOUT_L76C:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         break;
                                     case KEY_GPS_PDOP_LIMIT_L76C:
-                                        if (result != 1) {
-                                            savedParamsError = true;
-                                        }
+                                        savedParamsError |= result != 1;
                                         if (savedParamsError) {
                                             ToastUtils.showToast(PosGpsL76CFixActivity.this, "Opps！Save failed. Please check the input characters and try again.");
                                         } else {
